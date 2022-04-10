@@ -1,28 +1,28 @@
 package com.pedroanjos.cursomc.resources;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pedroanjos.cursomc.entities.Category;
+import com.pedroanjos.cursomc.service.CategoryService;
 
 @RestController
 @RequestMapping(value = "/categories")
 public class CategoryResource {
 
-	@GetMapping
-	public List<Category> list() {
-		Category cat1 = new Category(1L, "Informática");
-		Category cat2 = new Category(2L, "Escritório");
-		
-		List<Category> list = new ArrayList<>();
-		list.add(cat1);
-		list.add(cat2);
-		
-		return list;
+	@Autowired
+	private CategoryService service;
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<?> findById(@PathVariable Long id) {
+		Optional<Category> obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 }
