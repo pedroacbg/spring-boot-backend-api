@@ -7,12 +7,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.pedroanjos.cursomc.entities.Address;
 import com.pedroanjos.cursomc.entities.Category;
 import com.pedroanjos.cursomc.entities.City;
+import com.pedroanjos.cursomc.entities.Client;
 import com.pedroanjos.cursomc.entities.Product;
 import com.pedroanjos.cursomc.entities.State;
+import com.pedroanjos.cursomc.entities.enums.TypeClient;
+import com.pedroanjos.cursomc.repositories.AddressRepository;
 import com.pedroanjos.cursomc.repositories.CategoryRepository;
 import com.pedroanjos.cursomc.repositories.CityRepository;
+import com.pedroanjos.cursomc.repositories.ClientRepository;
 import com.pedroanjos.cursomc.repositories.ProductRepository;
 import com.pedroanjos.cursomc.repositories.StateRepository;
 
@@ -30,6 +35,12 @@ public class CursomcApplication implements CommandLineRunner {
 	
 	@Autowired
 	private CityRepository cityRepository;
+	
+	@Autowired
+	private ClientRepository clientRepository;
+	
+	@Autowired
+	private AddressRepository addressRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -66,6 +77,17 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		stateRepository.saveAll(Arrays.asList(st1, st2));
 		cityRepository.saveAll(Arrays.asList(c1, c2, c3));
+		
+		Client cli1 = new Client(null, "Maria Silva", "maria@gamil.com", "48699519087", TypeClient.PESSOA_FISICA);
+		cli1.getPhones().addAll(Arrays.asList("27363323", "9383893"));
+		
+		Address a1 = new Address(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
+		Address a2 = new Address(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+		
+		cli1.getAddresses().addAll(Arrays.asList(a1, a2));
+		
+		clientRepository.saveAll(Arrays.asList(cli1));
+		addressRepository.saveAll(Arrays.asList(a1, a2));
 	}
 
 }
