@@ -22,5 +22,4 @@ public class ClientResource {
 		Client obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
 }
