@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable {
@@ -25,6 +27,8 @@ public class Order implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date instant;
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "order")

@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pedroanjos.cursomc.entities.enums.TypeClient;
 
 @Entity
@@ -38,6 +39,7 @@ public class Client implements Serializable {
 	@CollectionTable(name = "tb_phones")
 	private Set<String> phones = new HashSet<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
 	
