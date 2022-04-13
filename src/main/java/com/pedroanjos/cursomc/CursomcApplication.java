@@ -13,6 +13,7 @@ import com.pedroanjos.cursomc.entities.Category;
 import com.pedroanjos.cursomc.entities.City;
 import com.pedroanjos.cursomc.entities.Client;
 import com.pedroanjos.cursomc.entities.Order;
+import com.pedroanjos.cursomc.entities.OrderItem;
 import com.pedroanjos.cursomc.entities.Payment;
 import com.pedroanjos.cursomc.entities.PaymentWithCard;
 import com.pedroanjos.cursomc.entities.PaymentWithTicket;
@@ -24,6 +25,7 @@ import com.pedroanjos.cursomc.repositories.AddressRepository;
 import com.pedroanjos.cursomc.repositories.CategoryRepository;
 import com.pedroanjos.cursomc.repositories.CityRepository;
 import com.pedroanjos.cursomc.repositories.ClientRepository;
+import com.pedroanjos.cursomc.repositories.OrderItemRepository;
 import com.pedroanjos.cursomc.repositories.OrderRepository;
 import com.pedroanjos.cursomc.repositories.PaymentRepository;
 import com.pedroanjos.cursomc.repositories.ProductRepository;
@@ -55,6 +57,9 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 	private PaymentRepository paymentRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -117,6 +122,19 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		orderRepository.saveAll(Arrays.asList(order1, order2));
 		paymentRepository.saveAll(Arrays.asList(paym1, paym2));
+		
+		OrderItem oi1 = new OrderItem(order1, p1, 0.00, 1, 2000.0);
+		OrderItem oi2 = new OrderItem(order1, p3, 0.00, 2, 80.0);
+		OrderItem oi3 = new OrderItem(order2, p2, 100.00, 1, 800.0);
+		
+		order1.getItens().addAll(Arrays.asList(oi1, oi2));
+		order2.getItens().addAll(Arrays.asList(oi3));
+		
+		p1.getItens().addAll(Arrays.asList(oi1));
+		p2.getItens().addAll(Arrays.asList(oi3));
+		p3.getItens().addAll(Arrays.asList(oi2));
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3));
 	}
 
 }

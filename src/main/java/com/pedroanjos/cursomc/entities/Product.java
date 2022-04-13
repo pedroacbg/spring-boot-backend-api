@@ -2,8 +2,10 @@ package com.pedroanjos.cursomc.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,6 +36,9 @@ public class Product implements Serializable {
 		joinColumns = @JoinColumn(name = "product_id"), 
 		inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private List<Category> categories = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "id.product")
+	private Set<OrderItem> itens = new HashSet<>();
 
 	public Product() {
 	}
@@ -41,6 +47,14 @@ public class Product implements Serializable {
 		this.id = id;
 		this.name = name;
 		this.price = price;
+	}
+	
+	public List<Order> getOrders(){
+		List<Order> list = new ArrayList<>();
+		for(OrderItem x : itens) {
+			list.add(x.getOrder());
+		}
+		return list;
 	}
 
 	public Long getId() {
@@ -69,6 +83,10 @@ public class Product implements Serializable {
 
 	public List<Category> getCategories() {
 		return categories;
+	}
+
+	public Set<OrderItem> getItens() {
+		return itens;
 	}
 
 	@Override
