@@ -1,11 +1,14 @@
 package com.pedroanjos.cursomc.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import com.pedroanjos.cursomc.dto.CategoryDTO;
 import com.pedroanjos.cursomc.entities.Category;
 import com.pedroanjos.cursomc.repositories.CategoryRepository;
 import com.pedroanjos.cursomc.service.exceptions.DataIntegrityException;
@@ -16,6 +19,11 @@ public class CategoryService {
 
 	@Autowired
 	private CategoryRepository repository;
+	
+	public List<CategoryDTO> findAll(){
+		List<Category> list = repository.findAll();
+		return list.stream().map(x -> new CategoryDTO(x)).collect(Collectors.toList());
+	}
 
 	public Category findById(Long id) {
 		Optional<Category> obj = repository.findById(id);
