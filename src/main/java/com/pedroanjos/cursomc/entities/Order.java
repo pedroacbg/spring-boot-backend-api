@@ -55,6 +55,14 @@ public class Order implements Serializable {
 		this.shippingAddress = shippingAddress;
 	}
 
+	public double getTotalValue(){
+		double sum = 0.0;
+		for(OrderItem ip : itens){
+			sum += ip.getSubTotal();
+		}
+		return sum;
+	}
+
 	public Long getId() {
 		return id;
 	}
