@@ -6,19 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pedroanjos.cursomc.entities.enums.Profile;
 import com.pedroanjos.cursomc.entities.enums.TypeClient;
 
 @Entity
@@ -45,12 +38,17 @@ public class Client implements Serializable {
 	@ElementCollection
 	@CollectionTable(name = "tb_phones")
 	private Set<String> phones = new HashSet<>();
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PROFILES")
+	private Set<Integer> profiles = new HashSet<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
 	
 	public Client() {
+		addProfile(Profile.CLIENT);
 	}
 
 	public Client(Long id, String name, String email, String cpfOrCnpj, TypeClient type, String password) {
@@ -60,6 +58,7 @@ public class Client implements Serializable {
 		this.cpfOrCnpj = cpfOrCnpj;
 		this.type = (type == null) ? null : type.getCode();
 		this.password = password;
+		addProfile(Profile.CLIENT);
 	}
 
 	public Long getId() {
@@ -108,6 +107,14 @@ public class Client implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Set<Profile> getProfiles(){
+		return profiles.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());
+	}
+
+	public void addProfile(Profile profile){
+		profiles.add(profile.getCode());
 	}
 
 	public List<Address> getAddresses() {

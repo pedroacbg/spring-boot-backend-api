@@ -3,6 +3,7 @@ package com.pedroanjos.cursomc.service;
 import com.pedroanjos.cursomc.CursomcApplication;
 import com.pedroanjos.cursomc.entities.*;
 import com.pedroanjos.cursomc.entities.enums.PaymentStatus;
+import com.pedroanjos.cursomc.entities.enums.Profile;
 import com.pedroanjos.cursomc.entities.enums.TypeClient;
 import com.pedroanjos.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,13 +109,19 @@ public class DBService {
         Client cli1 = new Client(null, "Junior Lima", "moacireletrica4@gmail.com", "48699519087", TypeClient.PESSOA_FISICA, encoder.encode("123"));
         cli1.getPhones().addAll(Arrays.asList("27363323", "9383893"));
 
+        Client cli2 = new Client(null, "Hugo Abaporu", "liaodxurebe@gmail.com", "14896332008", TypeClient.PESSOA_FISICA, encoder.encode("123"));
+        cli2.getPhones().addAll(Arrays.asList("54123658", "874569321"));
+        cli2.addProfile(Profile.ADMIN);
+
         Address a1 = new Address(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
         Address a2 = new Address(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
+        Address a3 = new Address(null, "Avenida Floriano", "2106", null, "Centro", "36215964", cli2, c2);
 
         cli1.getAddresses().addAll(Arrays.asList(a1, a2));
+        cli2.getAddresses().addAll(Arrays.asList(a3));
 
-        clientRepository.saveAll(Arrays.asList(cli1));
-        addressRepository.saveAll(Arrays.asList(a1, a2));
+        clientRepository.saveAll(Arrays.asList(cli1, cli2));
+        addressRepository.saveAll(Arrays.asList(a1, a2, a3));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
