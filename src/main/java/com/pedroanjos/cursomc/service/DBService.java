@@ -7,6 +7,7 @@ import com.pedroanjos.cursomc.entities.enums.TypeClient;
 import com.pedroanjos.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -15,6 +16,9 @@ import java.util.Arrays;
 
 @Service
 public class DBService {
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -101,7 +105,7 @@ public class DBService {
         stateRepository.saveAll(Arrays.asList(st1, st2));
         cityRepository.saveAll(Arrays.asList(c1, c2, c3));
 
-        Client cli1 = new Client(null, "Junior Lima", "moacireletrica4@gmail.com", "48699519087", TypeClient.PESSOA_FISICA);
+        Client cli1 = new Client(null, "Junior Lima", "moacireletrica4@gmail.com", "48699519087", TypeClient.PESSOA_FISICA, encoder.encode("123"));
         cli1.getPhones().addAll(Arrays.asList("27363323", "9383893"));
 
         Address a1 = new Address(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
