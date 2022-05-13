@@ -1,23 +1,17 @@
 package com.pedroanjos.cursomc.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.pedroanjos.cursomc.entities.enums.PaymentStatus;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pedroanjos.cursomc.entities.enums.PaymentStatus;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "tb_payment")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class Payment implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

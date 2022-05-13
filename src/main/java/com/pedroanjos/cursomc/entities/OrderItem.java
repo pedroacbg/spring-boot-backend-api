@@ -12,86 +12,91 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "tb_orderItem")
 public class OrderItem implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
-	@JsonIgnore
-	@EmbeddedId
-	private OrderItemPK id = new OrderItemPK();
-	
-	private Double discount;
-	private Integer quantity;
-	private Double price;
-	
-	public OrderItem() {
-	}
+    private static final long serialVersionUID = 1L;
 
-	public OrderItem(Order order, Product product, Double discount, Integer quantity, Double price) {
-		id.setOrder(order);
-		id.setProduct(product);
-		this.discount = discount;
-		this.quantity = quantity;
-		this.price = price;
-	}
+    @JsonIgnore
+    @EmbeddedId
+    private OrderItemPK id = new OrderItemPK();
 
-	public double getSubTotal(){
-		return (price - discount) * quantity;
-	}
+    private Double discount;
+    private Integer quantity;
+    private Double price;
 
-	@JsonIgnore
-	public Order getOrder() {
-		return id.getOrder();
-	}
-	
-	public Product getProduct() {
-		return id.getProduct();
-	}
-	
-	public OrderItemPK getId() {
-		return id;
-	}
+    public OrderItem() {
+    }
 
-	public void setId(OrderItemPK id) {
-		this.id = id;
-	}
+    public OrderItem(Order order, Product product, Double discount, Integer quantity, Double price) {
+        id.setOrder(order);
+        id.setProduct(product);
+        this.discount = discount;
+        this.quantity = quantity;
+        this.price = price;
+    }
 
-	public Double getDiscount() {
-		return discount;
-	}
+    public double getSubTotal() {
+        return (price - discount) * quantity;
+    }
 
-	public void setDiscount(Double discount) {
-		this.discount = discount;
-	}
+    @JsonIgnore
+    public Order getOrder() {
+        return id.getOrder();
+    }
 
-	public Integer getQuantity() {
-		return quantity;
-	}
+    public void setOrder(Order order) {
+        id.setOrder(order);
+    }
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
+    public Product getProduct() {
+        return id.getProduct();
+    }
 
-	public Double getPrice() {
-		return price;
-	}
+    public void setProduct(Product product) {
+        id.setProduct(product);
+    }
 
-	public void setPrice(Double price) {
-		this.price = price;
-	}
+    public OrderItemPK getId() {
+        return id;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
+    public void setId(OrderItemPK id) {
+        this.id = id;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		OrderItem other = (OrderItem) obj;
-		return Objects.equals(id, other.id);
-	}
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        OrderItem other = (OrderItem) obj;
+        return Objects.equals(id, other.id);
+    }
 }
