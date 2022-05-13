@@ -1,6 +1,8 @@
 package com.pedroanjos.cursomc.entities;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 import javax.persistence.EmbeddedId;
@@ -98,5 +100,20 @@ public class OrderItem implements Serializable {
         if (getClass() != obj.getClass()) return false;
         OrderItem other = (OrderItem) obj;
         return Objects.equals(id, other.id);
+    }
+
+    @Override
+    public String toString() {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getProduct().getName());
+        builder.append(", Qte: ");
+        builder.append(getQuantity());
+        builder.append(", Preço unitário: ");
+        builder.append(nf.format(getPrice()));
+        builder.append(", SubTotal: ");
+        builder.append(nf.format(getSubTotal()));
+        builder.append("\n");
+        return builder.toString();
     }
 }
