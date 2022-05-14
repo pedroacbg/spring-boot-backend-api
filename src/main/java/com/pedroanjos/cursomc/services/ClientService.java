@@ -1,5 +1,6 @@
 package com.pedroanjos.cursomc.services;
 
+import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import com.pedroanjos.cursomc.entities.enums.Profile;
 import com.pedroanjos.cursomc.security.UserSS;
 import com.pedroanjos.cursomc.services.exceptions.AuthorizationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +45,13 @@ public class ClientService {
 
 	@Autowired
 	private S3Service service;
-	
+
+	@Autowired
+	private ImageService imageService;
+
+	@Value("${img.prefix.client.profile}")
+	private String prefix;
+
 	public List<ClientDTO> findAll(){
 		List<Client> list = repository.findAll();
 		return list.stream().map(x -> new ClientDTO(x)).collect(Collectors.toList());
@@ -117,10 +125,10 @@ public class ClientService {
 		if(user == null){
 			throw new AuthorizationException("Acesso negado");
 		}
-		URI uri = service.uploadFile(multipartFile);
-		Client client = findById(user.getId());
-		client.setImgUrl(uri.toString());
-		repository.save(client);
-		return uri;
+
+		BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
+		String fileName = prefix + user.getId() + ".jpg";
+
+		return service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");
 	}
 }
