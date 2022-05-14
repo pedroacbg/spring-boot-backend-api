@@ -1,6 +1,9 @@
 package com.pedroanjos.cursomc.resources;
 
+import com.pedroanjos.cursomc.dto.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +32,12 @@ public class OrderResource {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+
+	@GetMapping()
+	public ResponseEntity<Page<Order>> findPage(Pageable pageable){
+		Page<Order> list = service.findPage(pageable);
+		return ResponseEntity.ok().body(list);
 	}
 	
 }

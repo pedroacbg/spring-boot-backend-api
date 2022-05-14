@@ -11,4 +11,5 @@ public interface ClientRepository extends JpaRepository<Client, Long>{
 
 	@Transactional(readOnly = true)
 	Client findByEmail(String email);
+
 }

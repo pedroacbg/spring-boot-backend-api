@@ -3,15 +3,18 @@ package com.pedroanjos.cursomc.services;
 import java.util.Date;
 import java.util.Optional;
 
-import com.pedroanjos.cursomc.entities.OrderItem;
-import com.pedroanjos.cursomc.entities.PaymentWithTicket;
+import com.pedroanjos.cursomc.dto.CategoryDTO;
+import com.pedroanjos.cursomc.entities.*;
 import com.pedroanjos.cursomc.entities.enums.PaymentStatus;
 import com.pedroanjos.cursomc.repositories.OrderItemRepository;
 import com.pedroanjos.cursomc.repositories.PaymentRepository;
+import com.pedroanjos.cursomc.security.UserSS;
+import com.pedroanjos.cursomc.services.exceptions.AuthorizationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.pedroanjos.cursomc.entities.Order;
 import com.pedroanjos.cursomc.repositories.OrderRepository;
 import com.pedroanjos.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,5 +70,14 @@ public class OrderService {
 		orderItemRepository.saveAll(obj.getItens());
 		emailService.sendOrderConfirmationHtmlEmail(obj);
 		return obj;
+	}
+
+	public Page<Order> findPage(Pageable pageable){
+		UserSS user = UserService.authenticated();
+		if(user ==  null){
+			throw new AuthorizationException("Acesso negado");
+		}
+		Client client = clientService.findById(user.getId());
+		return repository.findByClient(client, pageable);
 	}
 }
