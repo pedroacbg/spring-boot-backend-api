@@ -15,10 +15,6 @@ import java.util.Arrays;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner{
-
-	@Autowired
-	private S3Service service;
-
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
 	}
@@ -26,6 +22,6 @@ public class CursomcApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		service.uploadFile("E:\\Jafari Adisa.png");
+
 	}
 }

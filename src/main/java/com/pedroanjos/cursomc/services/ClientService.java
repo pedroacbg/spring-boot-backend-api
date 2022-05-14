@@ -1,5 +1,6 @@
 package com.pedroanjos.cursomc.services;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,6 +27,7 @@ import com.pedroanjos.cursomc.repositories.AddressRepository;
 import com.pedroanjos.cursomc.repositories.ClientRepository;
 import com.pedroanjos.cursomc.services.exceptions.DataIntegrityException;
 import com.pedroanjos.cursomc.services.exceptions.ObjectNotFoundException;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ClientService {
@@ -38,6 +40,9 @@ public class ClientService {
 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
+
+	@Autowired
+	private S3Service service;
 	
 	public List<ClientDTO> findAll(){
 		List<Client> list = repository.findAll();
@@ -105,5 +110,9 @@ public class ClientService {
 	private void updateData(Client newObj, Client obj) {
 		newObj.setName(obj.getName());
 		newObj.setEmail(obj.getEmail());
+	}
+
+	public URI uploadProfilePicture(MultipartFile multipartFile){
+		return service.uploadFile(multipartFile);
 	}
 }
