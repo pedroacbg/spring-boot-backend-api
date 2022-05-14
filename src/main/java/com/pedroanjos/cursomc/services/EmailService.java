@@ -1,5 +1,6 @@
 package com.pedroanjos.cursomc.services;
 
+import com.pedroanjos.cursomc.entities.Client;
 import com.pedroanjos.cursomc.entities.Order;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -14,4 +15,6 @@ public interface EmailService {
     void sendOrderConfirmationHtmlEmail(Order obj);
 
     void sendHtmlEmail(MimeMessage msg);
+
+    void sendNewPasswordEmail(Client client, String newPass);
 }
