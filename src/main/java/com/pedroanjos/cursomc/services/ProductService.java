@@ -1,11 +1,11 @@
-package com.pedroanjos.cursomc.service;
+package com.pedroanjos.cursomc.services;
 
 import com.pedroanjos.cursomc.entities.Category;
 import com.pedroanjos.cursomc.entities.Order;
 import com.pedroanjos.cursomc.entities.Product;
 import com.pedroanjos.cursomc.repositories.CategoryRepository;
 import com.pedroanjos.cursomc.repositories.ProductRepository;
-import com.pedroanjos.cursomc.service.exceptions.ObjectNotFoundException;
+import com.pedroanjos.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,4 +1,4 @@
-package com.pedroanjos.cursomc.service;
+package com.pedroanjos.cursomc.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import com.pedroanjos.cursomc.dto.CategoryDTO;
 import com.pedroanjos.cursomc.entities.Category;
 import com.pedroanjos.cursomc.repositories.CategoryRepository;
-import com.pedroanjos.cursomc.service.exceptions.DataIntegrityException;
-import com.pedroanjos.cursomc.service.exceptions.ObjectNotFoundException;
+import com.pedroanjos.cursomc.services.exceptions.DataIntegrityException;
+import com.pedroanjos.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoryService {

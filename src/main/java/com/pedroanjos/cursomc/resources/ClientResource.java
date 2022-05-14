@@ -23,7 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.pedroanjos.cursomc.dto.ClientDTO;
 import com.pedroanjos.cursomc.dto.ClientNewDTO;
 import com.pedroanjos.cursomc.entities.Client;
-import com.pedroanjos.cursomc.service.ClientService;
+import com.pedroanjos.cursomc.services.ClientService;
 
 @RestController
 @RequestMapping(value = "/clients")

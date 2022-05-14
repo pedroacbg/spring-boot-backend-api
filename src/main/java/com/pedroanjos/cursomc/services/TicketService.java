@@ -1,4 +1,4 @@
-package com.pedroanjos.cursomc.service;
+package com.pedroanjos.cursomc.services;
 
 import com.pedroanjos.cursomc.entities.PaymentWithTicket;
 import org.springframework.stereotype.Service;

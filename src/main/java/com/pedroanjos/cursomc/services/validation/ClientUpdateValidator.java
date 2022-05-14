@@ -1,4 +1,4 @@
-package com.pedroanjos.cursomc.service.validation;
+package com.pedroanjos.cursomc.services.validation;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,13 +1,11 @@
-package com.pedroanjos.cursomc.service;
+package com.pedroanjos.cursomc.services;
 
-import com.pedroanjos.cursomc.CursomcApplication;
 import com.pedroanjos.cursomc.entities.*;
 import com.pedroanjos.cursomc.entities.enums.PaymentStatus;
 import com.pedroanjos.cursomc.entities.enums.Profile;
 import com.pedroanjos.cursomc.entities.enums.TypeClient;
 import com.pedroanjos.cursomc.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

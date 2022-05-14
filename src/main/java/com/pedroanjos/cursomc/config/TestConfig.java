@@ -1,8 +1,8 @@
 package com.pedroanjos.cursomc.config;
 
-import com.pedroanjos.cursomc.service.DBService;
-import com.pedroanjos.cursomc.service.EmailService;
-import com.pedroanjos.cursomc.service.MockEmailService;
+import com.pedroanjos.cursomc.services.DBService;
+import com.pedroanjos.cursomc.services.EmailService;
+import com.pedroanjos.cursomc.services.MockEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

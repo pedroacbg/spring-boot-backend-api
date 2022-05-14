@@ -1,4 +1,4 @@
-package com.pedroanjos.cursomc.service;
+package com.pedroanjos.cursomc.services;
 
 import com.pedroanjos.cursomc.entities.Order;
 import org.springframework.beans.factory.annotation.Autowired;

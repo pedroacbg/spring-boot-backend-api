@@ -1,4 +1,4 @@
-package com.pedroanjos.cursomc.service;
+package com.pedroanjos.cursomc.services;
 
 import java.util.Date;
 import java.util.Optional;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.pedroanjos.cursomc.entities.Order;
 import com.pedroanjos.cursomc.repositories.OrderRepository;
-import com.pedroanjos.cursomc.service.exceptions.ObjectNotFoundException;
+import com.pedroanjos.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service

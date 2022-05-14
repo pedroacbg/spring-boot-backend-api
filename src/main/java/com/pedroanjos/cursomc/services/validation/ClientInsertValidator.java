@@ -1,4 +1,4 @@
-package com.pedroanjos.cursomc.service.validation;
+package com.pedroanjos.cursomc.services.validation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import com.pedroanjos.cursomc.entities.Client;
 import com.pedroanjos.cursomc.entities.enums.TypeClient;
 import com.pedroanjos.cursomc.repositories.ClientRepository;
 import com.pedroanjos.cursomc.resources.exceptions.FieldMessage;
-import com.pedroanjos.cursomc.service.validation.utils.BR;
+import com.pedroanjos.cursomc.services.validation.utils.BR;
 
 public class ClientInsertValidator implements ConstraintValidator<ClientInsert, ClientNewDTO> {
 	

@@ -1,10 +1,13 @@
-package com.pedroanjos.cursomc.service;
+package com.pedroanjos.cursomc.services;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 
+import com.pedroanjos.cursomc.entities.enums.Profile;
+import com.pedroanjos.cursomc.security.UserSS;
+import com.pedroanjos.cursomc.services.exceptions.AuthorizationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -21,8 +24,8 @@ import com.pedroanjos.cursomc.entities.Client;
 import com.pedroanjos.cursomc.entities.enums.TypeClient;
 import com.pedroanjos.cursomc.repositories.AddressRepository;
 import com.pedroanjos.cursomc.repositories.ClientRepository;
-import com.pedroanjos.cursomc.service.exceptions.DataIntegrityException;
-import com.pedroanjos.cursomc.service.exceptions.ObjectNotFoundException;
+import com.pedroanjos.cursomc.services.exceptions.DataIntegrityException;
+import com.pedroanjos.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ClientService {
@@ -43,6 +46,11 @@ public class ClientService {
 	
 	
 	public Client findById(Long id){
+		UserSS user = UserService.authenticated();
+		if(user == null || !user.hasRole(Profile.ADMIN) && !id.equals(user.getId()) ){
+			throw new AuthorizationException("Acesso negado");
+		}
+
 		Optional<Client> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Client.class.getName()));
 	}

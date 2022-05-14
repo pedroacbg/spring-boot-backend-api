@@ -22,7 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pedroanjos.cursomc.dto.CategoryDTO;
 import com.pedroanjos.cursomc.entities.Category;
-import com.pedroanjos.cursomc.service.CategoryService;
+import com.pedroanjos.cursomc.services.CategoryService;
 
 @RestController
 @RequestMapping(value = "/categories")

@@ -1,13 +1,11 @@
 package com.pedroanjos.cursomc.resources;
 
-import com.pedroanjos.cursomc.dto.CategoryDTO;
-import com.pedroanjos.cursomc.entities.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.pedroanjos.cursomc.entities.Order;
-import com.pedroanjos.cursomc.service.OrderService;
+import com.pedroanjos.cursomc.services.OrderService;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;

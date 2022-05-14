@@ -1,10 +1,9 @@
 package com.pedroanjos.cursomc.resources;
 
-import com.pedroanjos.cursomc.dto.CategoryDTO;
 import com.pedroanjos.cursomc.dto.ProductDTO;
 import com.pedroanjos.cursomc.entities.Product;
 import com.pedroanjos.cursomc.resources.utils.URL;
-import com.pedroanjos.cursomc.service.ProductService;
+import com.pedroanjos.cursomc.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
