@@ -98,6 +98,19 @@ public class ClientService {
 			throw new DataIntegrityException("Não é possível excluir pois há pedidos relacionados");
 		}
 	}
+
+	public Client findByEmail(String email){
+		UserSS user = UserService.authenticated();
+		if(user == null || !user.hasRole(Profile.ADMIN) && !email.equals(user.getUsername())){
+			throw new AuthorizationException("Acesso negado");
+		}
+
+		Client obj = repository.findByEmail(email);
+		if(obj == null){
+			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Client.class.getName());
+		}
+		return obj;
+	}
 	
 	public Client fromDTO(ClientDTO dto) {
 		return new Client(dto.getId(), dto.getName(), dto.getEmail(), null, null, null);
